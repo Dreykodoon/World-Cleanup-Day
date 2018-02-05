@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import Layout from './layout/layout';
 import Camera from './photo/camera';
 import Gallery from './photo/gallery';
+import Map from './photo/map';
 import { loadPhotos } from './photo/photo-actions';
 
 class App extends Component {
@@ -19,6 +20,7 @@ class App extends Component {
                     <Switch>
                         <Route exact path='/camera' component={Camera}/>
                         <Route exact path='/gallery' component={Gallery}/>
+                        <Route exact path='/map' component={Map}/>
                         <Redirect to='/camera'/>
                     </Switch>
                 </Layout>
