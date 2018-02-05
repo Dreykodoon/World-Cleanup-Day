@@ -14,6 +14,8 @@ class Header extends Component {
                 <Link style={{display: 'inline-block'}} to='/camera'>Camera</Link>
                 <div style={{width: '15px', display: 'inline-block'}}></div>
                 <Link style={{display: 'inline-block'}} to='/gallery'>Gallery</Link>
+                <div style={{width: '15px', display: 'inline-block'}}></div>
+                <Link style={{display: 'inline-block'}} to='/map'>Map</Link>
             </div>
         );
     }
