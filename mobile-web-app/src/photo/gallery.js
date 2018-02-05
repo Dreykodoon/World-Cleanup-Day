@@ -21,9 +21,10 @@ class Gallery extends Component {
             <div>
                 <div>
                     A series of trash photos.
+                    <button onClick={this.deletePhotos}>Delete all photos</button>
                     {photos.map((photo, index) => <Photo key={index} src={photo.src}/>)}
                 </div>
-                <button onClick={this.deletePhotos}>Delete all photos</button>
+                
             </div>
         );
     }
