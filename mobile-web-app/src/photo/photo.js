@@ -3,10 +3,9 @@ import PropTypes from 'prop-types';
 
 const styles = {
     image: {
-        width: '100px',
-        height: '100px',
-        marginLeft: '10px',
-        marginRight: '10px',
+        width: '70%',
+        margin: '10px',
+        display: 'block',
     }
 };
 

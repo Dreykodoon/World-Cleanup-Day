@@ -15,6 +15,7 @@ const styles = {
         top: '80%',
         left: '50%',
         width: '100px',
+        height: '50px',
         marginLeft: '-50px'
     },
 };
@@ -51,7 +52,7 @@ class Camera extends Component {
         return (
             <div ref={this.setContainerRef} style={styles.topContainer}>
                 <Webcam style={{marginLeft: cameraLeftMargin}} height={height} width={height} audio={false} ref={this.setCameraRef}/>
-                <button style={styles.button} onClick={this.takePhoto.bind(this)}>Click me</button>
+                <button style={styles.button} onClick={this.takePhoto.bind(this)}>Take photo</button>
             </div>
         );
     }
