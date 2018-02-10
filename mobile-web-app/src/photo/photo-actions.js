@@ -5,9 +5,9 @@ export const LOAD_PHOTOS = 'LOAD_PHOTOS';
 export const DELETE_PHOTOS = 'DELETE_PHOTOS';
 export const DELETE_SINGLE_PHOTO = 'DELETE_SINGLE_PHOTO';
 
-export function addPhoto(photoSrc) {
+export function addPhoto({coordinates, screenshot}) {
     return (dispatch, getState) => {
-        const photo = {id: getState().photoIdCounter.toString(), src: photoSrc};
+        const photo = {id: getState().photoIdCounter.toString(), coordinates, src: screenshot};
         localforage.setItem(photo.id, photo)
             .then(() => dispatch({
                 type: ADD_PHOTO,
