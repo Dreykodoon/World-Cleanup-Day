@@ -4,8 +4,6 @@ import PropTypes from 'prop-types';
 const styles = {
     image: {
         width: '70%',
-        margin: '10px',
-        display: 'block',
     }
 };
 
