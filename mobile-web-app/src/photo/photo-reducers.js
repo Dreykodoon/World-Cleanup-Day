@@ -6,10 +6,12 @@ export function reducers(state = initialState, {type, payload}) {
     switch (type) {
         case ADD_PHOTO: {
             const {photos, photoIdCounter} = state;
+
             return Object.assign({}, state, {photos: photos.concat([payload]), photoIdCounter: photoIdCounter + 1});
         }
         case LOAD_PHOTOS: {
             const largestId = findLargestPhotoId(payload);
+
             return Object.assign({}, state, {photos: payload, photoIdCounter: largestId + 1});
         }
         case DELETE_PHOTOS: {
@@ -17,6 +19,7 @@ export function reducers(state = initialState, {type, payload}) {
         }
         case DELETE_SINGLE_PHOTO: {
             const remainingPhotos = state.photos.filter((photo) => photo.id !== payload);
+
             return Object.assign({}, state, {photos: remainingPhotos});
         }
         default: {

@@ -56,5 +56,5 @@ export function deleteSinglePhoto(photoId) {
                 // TODO: something needs to be done if trying to remove the photo fails.
                 console.log(err);
             });
-    }
+    };
 }
