@@ -30,7 +30,9 @@ class Camera extends Component {
             }
         };
         this.setCameraRef = (webcam) => this.setState({webcam});
-        this.setContainerRef = (container) => this.container = container;
+        this.setContainerRef = (container) => {
+            this.container = container;
+        };
     }
 
     componentDidMount() {
@@ -49,6 +51,7 @@ class Camera extends Component {
     render() {
         const {width, height} = this.state.dimensions;
         const cameraLeftMargin = 0 - ((height - width) / 2);
+
         return (
             <div ref={this.setContainerRef} style={styles.topContainer}>
                 <Webcam style={{marginLeft: cameraLeftMargin}} height={height} width={height} audio={false} ref={this.setCameraRef}/>

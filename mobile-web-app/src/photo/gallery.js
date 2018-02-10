@@ -9,7 +9,7 @@ const styles = {
         margin: '10px',
         display: 'block',
     }
-}
+};
 
 class Gallery extends Component {
     constructor(props) {
@@ -31,6 +31,7 @@ class Gallery extends Component {
 
     render() {
         const { photos } = this.props;
+
         return (
             <div>
                 <div>

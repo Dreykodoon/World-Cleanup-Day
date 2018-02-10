@@ -5,7 +5,7 @@ const styles = {
     header: {
         height: '50px',
     }
-}
+};
 
 class Header extends Component {
     render() {

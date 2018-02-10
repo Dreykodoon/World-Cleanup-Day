@@ -6,7 +6,7 @@ const styles = {
     layout: {
         height: '100%',
     }
-}
+};
 
 const Layout = ({children}) => (
     <div style={styles.layout}>
