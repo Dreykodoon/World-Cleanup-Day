@@ -3,6 +3,7 @@ import localforage from 'localforage';
 export const ADD_PHOTO = 'ADD_PHOTO';
 export const LOAD_PHOTOS = 'LOAD_PHOTOS';
 export const DELETE_PHOTOS = 'DELETE_PHOTOS';
+export const DELETE_SINGLE_PHOTO = 'DELETE_SINGLE_PHOTO';
 
 export function addPhoto(photoSrc) {
     return (dispatch, getState) => {
@@ -42,4 +43,18 @@ export function deletePhotos(photos) {
                 console.log(err);
             });
     };
+}
+
+export function deleteSinglePhoto(photoId) {
+    return (dispatch) => {
+        localforage.removeItem(photoId)
+            .then(() => dispatch({
+                type: DELETE_SINGLE_PHOTO,
+                payload: photoId,
+            }))
+            .catch((err) => {
+                // TODO: something needs to be done if trying to remove the photo fails.
+                console.log(err);
+            });
+    }
 }
