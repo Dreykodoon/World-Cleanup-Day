@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Webcam from 'react-webcam';
 import { connect } from 'react-redux';
 import { addPhoto } from './photo-actions';
+import geoConfig from '../geolocation-config';
 
 const styles = {
     topContainer: {
@@ -44,8 +45,19 @@ class Camera extends Component {
     }
 
     takePhoto() {
-        const { webcam } = this.state;
-        this.props.addPhoto(webcam.getScreenshot());
+        navigator.geolocation.getCurrentPosition((position) => {
+            const { webcam } = this.state;
+
+            const coordinates = {
+                latitude: position.coords.latitude,
+                longitude: position.coords.longitude,
+            };
+            const screenshot = webcam.getScreenshot();
+            this.props.addPhoto({coordinates, screenshot});
+        }, (err) => {
+            // TODO: something needs to be done when coordinates couldn't be found
+            console.log(err);
+        }, geoConfig);
     }
 
     render() {
