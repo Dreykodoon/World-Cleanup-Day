@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import App from './app';
 import store from './store';
-import configureLocalforage from './localforage-config';
+import configureLocalforage from './configs/localforage-config';
 import './index.css';
 
 configureLocalforage();
