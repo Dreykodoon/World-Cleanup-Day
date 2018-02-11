@@ -5,8 +5,20 @@ export function setFBLoginStatus() {
         window.FB.getLoginStatus(function(response) {
             dispatch({
                 type: SET_FB_LOGIN_STATUS,
-                payload: response.status,
+                payload: createPayloadFrom(response),
             });
         });
+    };
+}
+
+function createPayloadFrom(response) {
+    const {status} = response;
+    const {accessToken, signedRequest, userID} = response.authResponse;
+
+    return {
+        accessToken,
+        signedRequest,
+        userID,
+        status,
     };
 }
