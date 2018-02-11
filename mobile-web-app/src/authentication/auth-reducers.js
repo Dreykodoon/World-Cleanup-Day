@@ -1,4 +1,8 @@
-import { SET_FB_LOGIN_STATUS } from './auth-actions';
+import {
+    SET_FB_LOGIN_STATUS,
+    LOGIN_WITH_FACEBOOK,
+    LOGOUT_WITH_FACEBOOK,
+} from './auth-actions';
 import FB_USER_STATUS_ENUM from './fb-user-status-enum';
 
 const initialState = {
@@ -13,6 +17,12 @@ const initialState = {
 export function reducers(state = initialState, {type, payload}) {
     switch (type) {
         case SET_FB_LOGIN_STATUS: {
+            return Object.assign({}, state, {facebook: payload});
+        }
+        case LOGIN_WITH_FACEBOOK: {
+            return Object.assign({}, state, {facebook: payload});
+        }
+        case LOGOUT_WITH_FACEBOOK: {
             return Object.assign({}, state, {facebook: payload});
         }
         default: {

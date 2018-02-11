@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { setFBLoginStatus } from '../authentication/auth-actions';
+import { setFBLoginStatus, loginWithFB, logoutWithFB } from '../authentication/auth-actions';
+import FB_USER_STATUS_ENUM from '../authentication/fb-user-status-enum';
 
 const styles = {
     header: {
@@ -26,16 +27,22 @@ class Header extends Component {
     componentWillReceiveProps(nextProps) {
         if (this.fbInitialized !== nextProps.fbInitialized && nextProps.fbInitialized) {
             this.openFacebookPopup = () => {
-                window.FB.login((response) => {
-                    this.props.setFBLoginStatus(response);
-                });
+                this.props.loginWithFB();
+            };
+            this.fbLogout = () => {
+                this.props.logoutWithFB();
             };
         }
     }
 
     render() {
-        const fbLoginButton = (
-            <button onClick={this.openFacebookPopup} style={styles.facebookButton}>Log in with Facebook</button>
+        const fbButtonOnClick = this.props.loggedIn ? this.fbLogout : this.openFacebookPopup;
+        const fbButtonLabel = this.props.loggedIn ? 'Log out from Facebook' : 'Log in with Facebook';
+
+        const fbButton = (
+            <button onClick={fbButtonOnClick} style={styles.facebookButton}>
+                {fbButtonLabel}
+            </button>
         );
 
         return (
@@ -46,7 +53,7 @@ class Header extends Component {
                     <Link style={{display: 'inline-block'}} to='/gallery'>Gallery</Link>
                 </div>
                 <div style={styles.rightMenu}>
-                    {this.props.fbInitialized ? fbLoginButton : null}
+                    {this.props.fbInitialized ? fbButton : null}
                 </div>
             </div>
         );
@@ -56,17 +63,23 @@ class Header extends Component {
 Header.propTypes = {
     fbInitialized: PropTypes.bool,
     setFBLoginStatus: PropTypes.func,
+    loggedIn: PropTypes.bool,
+    loginWithFB: PropTypes.func,
+    logoutWithFB: PropTypes.func,
 };
 
 const mapStateToProps = (state) => {
     return {
         fbInitialized: state.globals.fbInitialized,
+        loggedIn: state.auth.facebook.status === FB_USER_STATUS_ENUM.CONNECTED,
     };
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
         setFBLoginStatus: (response) => dispatch(setFBLoginStatus(response)),
+        loginWithFB: () => dispatch(loginWithFB()),
+        logoutWithFB: () => dispatch(logoutWithFB()),
     };
 };
 
