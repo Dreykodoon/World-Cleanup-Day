@@ -7,6 +7,7 @@ import Camera from './photo/camera';
 import Gallery from './photo/gallery';
 import { loadPhotos } from './photo/photo-actions';
 import { setFBLoginStatus } from './authentication/auth-actions';
+import { facebookInitialized } from './globals/globals-actions';
 
 
 class App extends Component {
@@ -30,6 +31,7 @@ class App extends Component {
                 xfbml      : true, // parse social plugins on this page
                 version    : 'v2.8' // use graph api version 2.8
             });
+            this.props.facebookInitialized();
             this.props.setFBLoginStatus();
         };
     }
@@ -63,12 +65,14 @@ class App extends Component {
 App.propTypes = {
     loadPhotos: PropTypes.func,
     setFBLoginStatus: PropTypes.func,
+    facebookInitialized: PropTypes.func,
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
         loadPhotos: () => dispatch(loadPhotos()),
         setFBLoginStatus: () => dispatch(setFBLoginStatus()),
+        facebookInitialized: () => dispatch(facebookInitialized())
     };
 };
 

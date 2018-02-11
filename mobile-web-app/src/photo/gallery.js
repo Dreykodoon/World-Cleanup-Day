@@ -58,7 +58,7 @@ Gallery.propTypes = {
 
 const mapStateToProps = (state) => {
     return {
-        photos: state.photos,
+        photos: state.photo.photos,
     };
 };
 
