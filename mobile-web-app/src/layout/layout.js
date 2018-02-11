@@ -1,22 +1,13 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import Header from './header';
+import { Route } from 'react-router-dom';
+import LoginScreen from './login-screen';
+import MainScreen from './main-screen';
 
-const styles = {
-    layout: {
-        height: '100%',
-    }
-};
-
-const Layout = ({children}) => (
-    <div style={styles.layout}>
-        <Header/>
-        {children}
+const Layout = () => (
+    <div style={{height: '100%'}}>
+        <Route path='/login' component={LoginScreen}/>
+        <Route path='/main' component={MainScreen}/>
     </div>
 );
-
-Layout.propTypes = {
-    children: PropTypes.any,
-};
 
 export default Layout;
