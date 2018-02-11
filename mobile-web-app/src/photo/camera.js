@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Webcam from 'react-webcam';
 import { connect } from 'react-redux';
 import { addPhoto } from './photo-actions';
-import geoConfig from '../geolocation-config';
+import geoConfig from '../configs/geolocation-config';
 
 const styles = {
     topContainer: {
