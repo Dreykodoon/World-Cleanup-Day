@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { setFBLoginStatus } from '../authentication/auth-actions';
 
 const styles = {
     header: {
@@ -22,7 +23,21 @@ const styles = {
 };
 
 class Header extends Component {
+    componentWillReceiveProps(nextProps) {
+        if (this.fbInitialized !== nextProps.fbInitialized && nextProps.fbInitialized) {
+            this.openFacebookPopup = () => {
+                window.FB.login((response) => {
+                    this.props.setFBLoginStatus(response);
+                });
+            };
+        }
+    }
+
     render() {
+        const fbLoginButton = (
+            <button onClick={this.openFacebookPopup} style={styles.facebookButton}>Log in with Facebook</button>
+        );
+
         return (
             <div style={styles.header}>
                 <div style={styles.leftMenu}>
@@ -31,7 +46,7 @@ class Header extends Component {
                     <Link style={{display: 'inline-block'}} to='/gallery'>Gallery</Link>
                 </div>
                 <div style={styles.rightMenu}>
-                    <button disabled={!this.props.fbInitialized} style={styles.facebookButton}>Log in with Facebook</button>
+                    {this.props.fbInitialized ? fbLoginButton : null}
                 </div>
             </div>
         );
@@ -40,6 +55,7 @@ class Header extends Component {
 
 Header.propTypes = {
     fbInitialized: PropTypes.bool,
+    setFBLoginStatus: PropTypes.func,
 };
 
 const mapStateToProps = (state) => {
@@ -48,4 +64,10 @@ const mapStateToProps = (state) => {
     };
 };
 
-export default connect(mapStateToProps)(Header);
+const mapDispatchToProps = (dispatch) => {
+    return {
+        setFBLoginStatus: (response) => dispatch(setFBLoginStatus(response)),
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);
