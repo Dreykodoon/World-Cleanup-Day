@@ -2,6 +2,7 @@ import localforage from 'localforage';
 
 export const ADD_PHOTO = 'ADD_PHOTO';
 export const LOAD_PHOTOS = 'LOAD_PHOTOS';
+export const UNLOAD_PHOTOS = 'UNLOAD_PHOTOS';
 export const DELETE_PHOTOS = 'DELETE_PHOTOS';
 export const DELETE_SINGLE_PHOTO = 'DELETE_SINGLE_PHOTO';
 
@@ -56,5 +57,11 @@ export function deleteSinglePhoto(photoId) {
                 // TODO: something needs to be done if trying to remove the photo fails.
                 console.log(err);
             });
+    };
+}
+
+export function unloadPhotos() {
+    return {
+        type: UNLOAD_PHOTOS,
     };
 }
