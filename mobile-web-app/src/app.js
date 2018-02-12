@@ -1,36 +1,14 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
-import { connect } from 'react-redux';
 import Layout from './layout/layout';
 import FacebookSdkLoader from './authentication/facebook-sdk-loader';
-import { loadPhotos } from './photo/photo-actions';
 
+const App = () => (
+    <FacebookSdkLoader>
+        <Router>
+            <Layout/>
+        </Router>
+    </FacebookSdkLoader>
+);
 
-class App extends Component {
-    componentWillMount() {
-        this.props.loadPhotos();
-    }
-
-    render() {
-        return (
-            <FacebookSdkLoader>
-                <Router>
-                    <Layout/>
-                </Router>
-            </FacebookSdkLoader>
-        );
-    }
-}
-
-App.propTypes = {
-    loadPhotos: PropTypes.func,
-};
-
-const mapDispatchToProps = (dispatch) => {
-    return {
-        loadPhotos: () => dispatch(loadPhotos()),
-    };
-};
-
-export default connect(undefined, mapDispatchToProps)(App);
+export default(App);

@@ -1,4 +1,10 @@
-import { ADD_PHOTO, LOAD_PHOTOS, DELETE_PHOTOS, DELETE_SINGLE_PHOTO } from './photo-actions';
+import {
+    ADD_PHOTO,
+    LOAD_PHOTOS,
+    UNLOAD_PHOTOS,
+    DELETE_PHOTOS,
+    DELETE_SINGLE_PHOTO,
+} from './photo-actions';
 
 const initialState = {photos: [], photoIdCounter: 0};
 
@@ -13,6 +19,9 @@ export function reducers(state = initialState, {type, payload}) {
             const largestId = findLargestPhotoId(payload);
 
             return Object.assign({}, state, {photos: payload, photoIdCounter: largestId + 1});
+        }
+        case UNLOAD_PHOTOS: {
+            return initialState;
         }
         case DELETE_PHOTOS: {
             return Object.assign({}, initialState);
