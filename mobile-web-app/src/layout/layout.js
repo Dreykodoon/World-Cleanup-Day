@@ -1,12 +1,15 @@
 import React from 'react';
-import { Route } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import LoginScreen from './login-screen';
 import MainScreen from './main-screen';
 
 const Layout = () => (
     <div style={{height: '100%'}}>
-        <Route path='/login' component={LoginScreen}/>
-        <Route path='/main' component={MainScreen}/>
+        <Switch>
+            <Route path='/login' component={LoginScreen}/>
+            <Route path='/main' component={MainScreen}/>
+            <Redirect to='/login'/>
+        </Switch>
     </div>
 );
 
