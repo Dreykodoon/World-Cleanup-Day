@@ -37,9 +37,6 @@ class Header extends Component {
                 this.props.logoutWithFB();
             };
         }
-        if (nextProps.loggedIn === false && nextProps.loggedIn !== this.props.loggedIn) {
-            this.props.history.push('/login');
-        }
     }
 
     render() {
@@ -64,7 +61,6 @@ Header.propTypes = {
     fbInitialized: PropTypes.bool,
     logoutWithFB: PropTypes.func,
     loggedIn: PropTypes.bool,
-    history: PropTypes.any,
 };
 
 const mapStateToProps = (state) => {
