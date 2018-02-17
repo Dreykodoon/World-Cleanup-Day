@@ -16,9 +16,7 @@ export function reducers(state = initialState, {type, payload}) {
             return Object.assign({}, state, {photos: photos.concat([payload]), photoIdCounter: photoIdCounter + 1});
         }
         case LOAD_PHOTOS: {
-            const largestId = findLargestPhotoId(payload);
-
-            return Object.assign({}, state, {photos: payload, photoIdCounter: largestId + 1});
+            return Object.assign({}, state, {photos: payload, photoIdCounter: calculatePhotoIdCounterValue(payload)});
         }
         case UNLOAD_PHOTOS: {
             return initialState;
@@ -37,6 +35,13 @@ export function reducers(state = initialState, {type, payload}) {
     }
 }
 
-function findLargestPhotoId(photos) {
-    return photos.length > 0 ? Number(photos[photos.length - 1].id) : 0;
+function calculatePhotoIdCounterValue(photos) {
+    if (photos.length > 0) {
+        const lastPhotoId = photos[photos.length - 1].id;
+        const idPrefixCounter = Number(lastPhotoId.split('_')[0]);
+
+        return idPrefixCounter + 1;
+    }
+
+    return 0;
 }
