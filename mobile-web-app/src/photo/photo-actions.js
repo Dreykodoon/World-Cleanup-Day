@@ -8,7 +8,14 @@ export const DELETE_SINGLE_PHOTO = 'DELETE_SINGLE_PHOTO';
 
 export function addPhoto({coordinates, screenshot}) {
     return (dispatch, getState) => {
-        const photo = {id: getState().photo.photoIdCounter.toString(), coordinates, src: screenshot};
+        const userID = getState().auth.facebook.userID;
+        const idCounter = getState().photo.photoIdCounter;
+        const photo = {
+            id: `${idCounter}_${userID}`,
+            coordinates,
+            src: screenshot,
+            userID,
+        };
         localforage.setItem(photo.id, photo)
             .then(() => dispatch({
                 type: ADD_PHOTO,
@@ -19,10 +26,14 @@ export function addPhoto({coordinates, screenshot}) {
 }
 
 export function loadPhotos() {
-    return (dispatch) => {
+    return (dispatch, getState) => {
         let photos = [];
-        localforage.iterate((value) => {
-            photos.push(value);
+        const currentUserID = getState().auth.facebook.userID;
+
+        localforage.iterate((photo) => {
+            if (currentUserID === photo.userID) {
+                photos.push(photo);
+            }
         })
             .then(() => dispatch({
                 type: LOAD_PHOTOS,
