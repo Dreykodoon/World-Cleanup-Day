@@ -45,14 +45,13 @@ class Camera extends Component {
     }
 
     takePhoto() {
-        navigator.geolocation.getCurrentPosition((position) => {
-            const { webcam } = this.state;
+        const screenshot = this.state.webcam.getScreenshot();
 
+        navigator.geolocation.getCurrentPosition((position) => {
             const coordinates = {
                 latitude: position.coords.latitude,
                 longitude: position.coords.longitude,
             };
-            const screenshot = webcam.getScreenshot();
             this.props.addPhoto({coordinates, screenshot});
         }, (err) => {
             // TODO: something needs to be done when coordinates couldn't be found
