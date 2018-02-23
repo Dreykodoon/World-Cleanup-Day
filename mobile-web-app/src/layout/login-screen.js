@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { loginWithFB } from '../authentication/auth-actions';
-import FB_USER_STATUS_ENUM from '../authentication/fb-user-status-enum';
+import { isUserLoggedIn } from '../authentication/auth-reducers';
 
 const styles = {
     screen: {
@@ -52,8 +52,7 @@ LoginScreen.propTypes = {
 const mapStateToProps = (state) => {
     return {
         fbInitialized: state.globals.fbInitialized,
-        loggedIn: state.auth.facebook.status === FB_USER_STATUS_ENUM.CONNECTED
-                    && state.auth.wcdToken,
+        loggedIn: isUserLoggedIn(state),
     };
 };
 
