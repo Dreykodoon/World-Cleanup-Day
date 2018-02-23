@@ -17,18 +17,15 @@ const styles = {
 };
 
 class LoginScreen extends React.Component {
-    componentWillMount() {
+    constructor() {
+        super();
+
         this.openFacebookPopup = () => {
             this.props.loginWithFB();
         };
     }
 
     componentWillReceiveProps(nextProps) {
-        if (this.props.fbInitialized !== nextProps.fbInitialized && nextProps.fbInitialized) {
-            this.openFacebookPopup = () => {
-                this.props.loginWithFB();
-            };
-        }
         if (nextProps.loggedIn && nextProps.loggedIn !== this.props.loggedIn) {
             this.props.history.push('/main/camera');
         }
