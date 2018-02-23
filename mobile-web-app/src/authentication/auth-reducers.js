@@ -1,3 +1,4 @@
+import { createSelector } from 'reselect';
 import {
     SET_FB_LOGIN_STATUS,
     LOGIN_WITH_FACEBOOK,
@@ -31,3 +32,11 @@ export function reducers(state = initialState, {type, payload}) {
         }
     }
 }
+
+/** SELECTORS */
+
+const getFacebookUserStatus = (state) => state.auth.facebook.status;
+const getWcdToken = (state) => state.auth.wcdToken;
+
+export const isUserLoggedIn = createSelector([getFacebookUserStatus, getWcdToken],
+    (facebookUserStatus, wcdToken) => facebookUserStatus === FB_USER_STATUS_ENUM.CONNECTED && Boolean(wcdToken));
