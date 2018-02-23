@@ -43,8 +43,19 @@ export function loginWithFB() {
 }
 
 export function logoutWithFB() {
-    return (dispatch) => {
-        window.FB.logout((response) => {
+    return (dispatch, getState) => {
+        window.FB.logout(async (response) => {
+            try {
+                await axios.delete('/auth', {
+                    headers: {
+                        Authorization: `Bearer ${getState().auth.wcdToken}`,
+                    }
+                });
+            }
+            catch (exception) {
+                // TODO: handle server error case
+                console.log(exception);
+            }
             dispatch({
                 type: LOGOUT_WITH_FACEBOOK,
                 payload: createPayloadFrom(response),
