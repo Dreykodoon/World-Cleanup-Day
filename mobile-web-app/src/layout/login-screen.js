@@ -52,7 +52,8 @@ LoginScreen.propTypes = {
 const mapStateToProps = (state) => {
     return {
         fbInitialized: state.globals.fbInitialized,
-        loggedIn: state.auth.facebook.status === FB_USER_STATUS_ENUM.CONNECTED,
+        loggedIn: state.auth.facebook.status === FB_USER_STATUS_ENUM.CONNECTED
+                    && state.auth.wcdToken,
     };
 };
 

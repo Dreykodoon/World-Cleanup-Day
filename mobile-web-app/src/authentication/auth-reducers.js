@@ -24,7 +24,7 @@ export function reducers(state = initialState, {type, payload}) {
             return payload;
         }
         case LOGOUT_WITH_FACEBOOK: {
-            return Object.assign({}, state, {facebook: payload});
+            return Object.assign({}, state, {facebook: payload, wcdToken: null});
         }
         default: {
             return state;
