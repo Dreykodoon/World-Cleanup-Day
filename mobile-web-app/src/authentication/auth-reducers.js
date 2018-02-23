@@ -6,6 +6,7 @@ import {
 import FB_USER_STATUS_ENUM from './fb-user-status-enum';
 
 const initialState = {
+    wcdToken: null,
     facebook: {
         status: FB_USER_STATUS_ENUM.UNKNOWN,
         accessToken: null,
@@ -20,7 +21,7 @@ export function reducers(state = initialState, {type, payload}) {
             return Object.assign({}, state, {facebook: payload});
         }
         case LOGIN_WITH_FACEBOOK: {
-            return Object.assign({}, state, {facebook: payload});
+            return payload;
         }
         case LOGOUT_WITH_FACEBOOK: {
             return Object.assign({}, state, {facebook: payload});
