@@ -26,7 +26,6 @@ export function loginWithFB() {
                     source: BACKEND_LOGIN_SOURCES.FACEBOOK,
                     token: fbAccessToken,
                 });
-                console.log(wcdResponse);
             }
             catch (exception) {
                 // TODO: handle server error and user locked responses!
