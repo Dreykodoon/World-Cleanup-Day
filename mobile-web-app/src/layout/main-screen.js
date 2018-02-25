@@ -6,11 +6,11 @@ import Header from './header';
 import Camera from '../photo/camera';
 import Gallery from '../photo/gallery';
 import { loadPhotos, unloadPhotos } from '../photo/photo-actions';
-import FB_USER_STATUS_ENUM from '../authentication/fb-user-status-enum';
+import { isUserLoggedIn } from '../authentication/auth-reducers';
 
 class MainScreen extends React.Component {
     componentWillMount() {
-        if (this.props.userIsAuthenticated) {
+        if (this.props.loggedIn) {
             this.props.loadPhotos();
         }
         else {
@@ -19,7 +19,7 @@ class MainScreen extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (!nextProps.userIsAuthenticated) {
+        if (!nextProps.loggedIn) {
             this.props.history.push('/login');
         }
     }
@@ -31,7 +31,7 @@ class MainScreen extends React.Component {
     render() {
         const {match} = this.props;
 
-        return this.props.userIsAuthenticated ? (
+        return this.props.loggedIn ? (
             <div style={{height: '100%'}}>
                 <Header/>
                 <Route path={`${match.url}/camera`} component={Camera}/>
@@ -45,13 +45,13 @@ MainScreen.propTypes = {
     match: PropTypes.any,
     loadPhotos: PropTypes.func,
     unloadPhotos: PropTypes.func,
-    userIsAuthenticated: PropTypes.bool,
+    loggedIn: PropTypes.bool,
     history: PropTypes.any,
 };
 
 const mapStateToProps = (state) => {
     return {
-        userIsAuthenticated: state.auth.facebook.status === FB_USER_STATUS_ENUM.CONNECTED,
+        loggedIn: isUserLoggedIn(state),
     };
 };
 

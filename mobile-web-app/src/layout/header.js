@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
 import { logoutWithFB } from '../authentication/auth-actions';
-import FB_USER_STATUS_ENUM from '../authentication/fb-user-status-enum';
 
 const styles = {
     header: {
@@ -25,18 +24,12 @@ const styles = {
 };
 
 class Header extends Component {
-    componentWillMount() {
+    constructor() {
+        super();
+
         this.fbLogout = () => {
             this.props.logoutWithFB();
         };
-    }
-
-    componentWillReceiveProps(nextProps) {
-        if (this.props.fbInitialized !== nextProps.fbInitialized && nextProps.fbInitialized) {
-            this.fbLogout = () => {
-                this.props.logoutWithFB();
-            };
-        }
     }
 
     render() {
@@ -48,7 +41,7 @@ class Header extends Component {
                     <Link style={{display: 'inline-block'}} to='/main/gallery'>Gallery</Link>
                 </div>
                 <div style={styles.rightMenu}>
-                    <button disabled={!this.props.fbInitialized} onClick={this.fbLogout} style={styles.logoutButton}>
+                    <button onClick={this.fbLogout} style={styles.logoutButton}>
                         Log out from Facebook
                     </button>
                 </div>
@@ -58,16 +51,7 @@ class Header extends Component {
 }
 
 Header.propTypes = {
-    fbInitialized: PropTypes.bool,
     logoutWithFB: PropTypes.func,
-    loggedIn: PropTypes.bool,
-};
-
-const mapStateToProps = (state) => {
-    return {
-        fbInitialized: state.globals.fbInitialized,
-        loggedIn: state.auth.facebook.status === FB_USER_STATUS_ENUM.CONNECTED,
-    };
 };
 
 const mapDispatchToProps = (dispatch) => {
@@ -76,4 +60,4 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Header));
+export default connect(undefined, mapDispatchToProps)(withRouter(Header));
