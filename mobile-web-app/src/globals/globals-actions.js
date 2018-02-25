@@ -8,9 +8,10 @@ export function facebookInitialized() {
     };
 }
 
-export function displayMessage() {
+export function displayMessage(message) {
     return {
         type: DISPLAY_MESSAGE,
+        payload: message,
     };
 }
 

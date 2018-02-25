@@ -5,6 +5,7 @@ import { withRouter } from 'react-router';
 import { loginWithFB } from '../authentication/auth-actions';
 import { isUserLoggedIn } from '../authentication/auth-reducers';
 import { displayMessage } from '../globals/globals-actions';
+import { MESSAGES } from '../globals/message-enums';
 
 const styles = {
     screen: {
@@ -22,7 +23,7 @@ class LoginScreen extends React.Component {
         super();
 
         this.openFacebookPopup = () => this.props.loginWithFB();
-        this.displayMessage = () => this.props.displayMessage();
+        this.displayMessage = () => this.props.displayMessage(MESSAGES.TEST_MESSAGE);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -61,7 +62,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         loginWithFB: () => dispatch(loginWithFB()),
-        displayMessage: () => dispatch(displayMessage()),
+        displayMessage: (message) => dispatch(displayMessage(message)),
     };
 };
 
