@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { setFBLoginStatus } from '../authentication/auth-actions';
 import { facebookInitialized } from './globals-actions';
 
 class FacebookSdkLoader extends React.Component {
@@ -22,7 +21,6 @@ class FacebookSdkLoader extends React.Component {
                 version    : 'v2.8' // use graph api version 2.8
             });
             this.props.facebookInitialized();
-            this.props.setFBLoginStatus();
         };
     }
 
@@ -44,13 +42,11 @@ class FacebookSdkLoader extends React.Component {
 
 FacebookSdkLoader.propTypes = {
     children: PropTypes.any,
-    setFBLoginStatus: PropTypes.func,
     facebookInitialized: PropTypes.func,
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        setFBLoginStatus: () => dispatch(setFBLoginStatus()),
         facebookInitialized: () => dispatch(facebookInitialized())
     };
 };

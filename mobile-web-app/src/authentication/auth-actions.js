@@ -3,20 +3,8 @@ import { BACKEND_LOGIN_SOURCES } from './constants';
 import { DISPLAY_MESSAGE } from '../globals/globals-actions';
 import { MESSAGES } from '../globals/message-enums';
 
-export const SET_FB_LOGIN_STATUS = 'SET_FB_LOGIN_STATUS';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
-export const LOGOUT_WITH_FACEBOOK = 'LOGOUT_WITH_FACEBOOK';
-
-export function setFBLoginStatus() {
-    return (dispatch) => {
-        window.FB.getLoginStatus(function(response) {
-            dispatch({
-                type: SET_FB_LOGIN_STATUS,
-                payload: createPayloadFrom(response),
-            });
-        });
-    };
-}
+export const LOGOUT = 'LOGOUT';
 
 export function loginWithFB() {
     return (dispatch) => {
@@ -64,21 +52,14 @@ export function loginWithFB() {
 
 export function logoutWithFB() {
     return (dispatch, getState) => {
-        window.FB.logout(async (response) => {
-            try {
-                await axios.delete('/auth', {
-                    headers: {
-                        Authorization: `Bearer ${getState().auth.wcdToken}`,
-                    }
-                });
-            }
-            catch (exception) {
-                // TODO: handle server error case
-                console.log(exception);
-            }
+        window.FB.logout(() => {
+            axios.delete('/auth', {
+                headers: {
+                    Authorization: `Bearer ${getState().auth.wcdToken}`,
+                }
+            });
             dispatch({
-                type: LOGOUT_WITH_FACEBOOK,
-                payload: createPayloadFrom(response),
+                type: LOGOUT,
             });
         });
     };
