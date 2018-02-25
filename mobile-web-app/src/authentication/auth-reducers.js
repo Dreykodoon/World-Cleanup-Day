@@ -1,7 +1,7 @@
 import { createSelector } from 'reselect';
 import {
     SET_FB_LOGIN_STATUS,
-    LOGIN_WITH_FACEBOOK,
+    LOGIN_SUCCESS,
     LOGOUT_WITH_FACEBOOK,
 } from './auth-actions';
 import FB_USER_STATUS_ENUM from './fb-user-status-enum';
@@ -21,7 +21,7 @@ export function reducers(state = initialState, {type, payload}) {
         case SET_FB_LOGIN_STATUS: {
             return Object.assign({}, state, {facebook: payload});
         }
-        case LOGIN_WITH_FACEBOOK: {
+        case LOGIN_SUCCESS: {
             return payload;
         }
         case LOGOUT_WITH_FACEBOOK: {
