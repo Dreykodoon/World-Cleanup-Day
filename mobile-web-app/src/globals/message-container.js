@@ -37,7 +37,8 @@ const MessageContainer = ({message, hideMessage}) => {
                     <CloseIcon/>
                 </Button>
             </div>}
-            autoHideDuration={5000}/>
+            autoHideDuration={5000}
+            transitionDuration={{enter: 300, exit: 0}}/>
     );
 };
 

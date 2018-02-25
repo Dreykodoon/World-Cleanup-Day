@@ -6,12 +6,12 @@ export const MESSAGE_TYPES = {
 };
 
 export const MESSAGES = {
-    TEST_MESSAGE: {
-        text: 'Test message',
-        type: MESSAGE_TYPES.SUCCESS,
-    },
     FACEBOOK_LOGIN_FAILED: {
         text: 'Din not connect with Facebook.',
+        type: MESSAGE_TYPES.ERROR,
+    },
+    WCD_LOGIN_FAILED: {
+        text: 'Could not connect to WCD servers.',
         type: MESSAGE_TYPES.ERROR,
     }
 };

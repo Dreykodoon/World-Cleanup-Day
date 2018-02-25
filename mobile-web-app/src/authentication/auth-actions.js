@@ -29,25 +29,28 @@ export function loginWithFB() {
 
                 return;
             }
-            const fbAccessToken = fbResponse.authResponse.accessToken;
-            let wcdResponse;
+
             try {
-                wcdResponse = await axios.post('/auth/external', {
+                const wcdResponse = await axios.post('/auth/external', {
                     source: BACKEND_LOGIN_SOURCES.FACEBOOK,
-                    token: fbAccessToken,
+                    token: fbResponse.authResponse.accessToken,
+                });
+
+                dispatch({
+                    type: LOGIN_SUCCESS,
+                    payload: {
+                        wcdToken: wcdResponse.data.token,
+                        facebook: createPayloadFrom(fbResponse),
+                    }
                 });
             }
             catch (exception) {
-                // TODO: handle server error and user locked responses!
-                console.log(exception);
+                dispatch({
+                    type: DISPLAY_MESSAGE,
+                    payload: MESSAGES.WCD_LOGIN_FAILED,
+                });
             }
-            dispatch({
-                type: LOGIN_SUCCESS,
-                payload: {
-                    wcdToken: wcdResponse.data.token,
-                    facebook: createPayloadFrom(fbResponse),
-                }
-            });
+
         });
     };
 }
