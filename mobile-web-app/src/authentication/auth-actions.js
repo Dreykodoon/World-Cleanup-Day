@@ -35,7 +35,6 @@ export function loginWithFB() {
                     source: BACKEND_LOGIN_SOURCES.FACEBOOK,
                     token: fbResponse.authResponse.accessToken,
                 });
-
                 dispatch({
                     type: LOGIN_SUCCESS,
                     payload: {
@@ -45,10 +44,18 @@ export function loginWithFB() {
                 });
             }
             catch (exception) {
-                dispatch({
-                    type: DISPLAY_MESSAGE,
-                    payload: MESSAGES.WCD_LOGIN_FAILED,
-                });
+                if (exception.response.data[0].code === 'AUTH_ACCOUNT_IS_LOCKED') {
+                    dispatch({
+                        type: DISPLAY_MESSAGE,
+                        payload: MESSAGES.WCD_ACCOUNT_LOCKED,
+                    });
+                }
+                else {
+                    dispatch({
+                        type: DISPLAY_MESSAGE,
+                        payload: MESSAGES.WCD_LOGIN_FAILED,
+                    });
+                }
             }
 
         });
