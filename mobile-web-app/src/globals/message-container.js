@@ -42,7 +42,7 @@ const MessageContainer = ({message, hideMessage}) => {
 };
 
 MessageContainer.propTypes = {
-    message: PropTypes.string,
+    message: PropTypes.object,
     hideMessage: PropTypes.func,
 };
 

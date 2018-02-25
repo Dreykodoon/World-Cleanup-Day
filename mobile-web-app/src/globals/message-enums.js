@@ -11,7 +11,7 @@ export const MESSAGES = {
         type: MESSAGE_TYPES.SUCCESS,
     },
     FACEBOOK_LOGIN_FAILED: {
-        text: 'Could not connect to Facebook. Please try again later.',
+        text: 'Din not connect with Facebook.',
         type: MESSAGE_TYPES.ERROR,
     }
 };

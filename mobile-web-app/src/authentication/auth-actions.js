@@ -1,8 +1,10 @@
 import axios from 'axios';
 import { BACKEND_LOGIN_SOURCES } from './constants';
+import { DISPLAY_MESSAGE } from '../globals/globals-actions';
+import { MESSAGES } from '../globals/message-enums';
 
 export const SET_FB_LOGIN_STATUS = 'SET_FB_LOGIN_STATUS';
-export const LOGIN_WITH_FACEBOOK = 'LOGIN_WITH_FACEBOOK';
+export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGOUT_WITH_FACEBOOK = 'LOGOUT_WITH_FACEBOOK';
 
 export function setFBLoginStatus() {
@@ -19,6 +21,14 @@ export function setFBLoginStatus() {
 export function loginWithFB() {
     return (dispatch) => {
         window.FB.login(async (fbResponse) => {
+            if (fbResponse.authResponse === null) {
+                dispatch({
+                    type: DISPLAY_MESSAGE,
+                    payload: MESSAGES.FACEBOOK_LOGIN_FAILED,
+                });
+
+                return;
+            }
             const fbAccessToken = fbResponse.authResponse.accessToken;
             let wcdResponse;
             try {
@@ -32,7 +42,7 @@ export function loginWithFB() {
                 console.log(exception);
             }
             dispatch({
-                type: LOGIN_WITH_FACEBOOK,
+                type: LOGIN_SUCCESS,
                 payload: {
                     wcdToken: wcdResponse.data.token,
                     facebook: createPayloadFrom(fbResponse),
