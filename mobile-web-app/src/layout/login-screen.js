@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { loginWithFB } from '../authentication/auth-actions';
 import { isUserLoggedIn } from '../authentication/auth-reducers';
+import { displayMessage } from '../globals/globals-actions';
 
 const styles = {
     screen: {
@@ -20,9 +21,8 @@ class LoginScreen extends React.Component {
     constructor() {
         super();
 
-        this.openFacebookPopup = () => {
-            this.props.loginWithFB();
-        };
+        this.openFacebookPopup = () => this.props.loginWithFB();
+        this.displayMessage = () => this.props.displayMessage();
     }
 
     componentWillReceiveProps(nextProps) {
@@ -37,6 +37,7 @@ class LoginScreen extends React.Component {
                 <button disabled={!this.props.fbInitialized} onClick={this.openFacebookPopup} style={styles.facebookButton}>
                     Log in with Facebook
                 </button>
+                <button onClick={this.displayMessage}>Display snackbar</button>
             </div>
         );
     }
@@ -47,6 +48,7 @@ LoginScreen.propTypes = {
     loggedIn: PropTypes.bool,
     loginWithFB: PropTypes.func,
     history: PropTypes.any,
+    displayMessage: PropTypes.func,
 };
 
 const mapStateToProps = (state) => {
@@ -59,6 +61,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         loginWithFB: () => dispatch(loginWithFB()),
+        displayMessage: () => dispatch(displayMessage()),
     };
 };
 
