@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import Layout from './layout/layout';
-import FacebookSdkLoader from './authentication/facebook-sdk-loader';
+import FacebookSdkLoader from './globals/facebook-sdk-loader';
 
 const App = () => (
     <FacebookSdkLoader>
