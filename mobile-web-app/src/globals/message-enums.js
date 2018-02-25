@@ -13,5 +13,9 @@ export const MESSAGES = {
     WCD_LOGIN_FAILED: {
         text: 'Could not connect to WCD servers.',
         type: MESSAGE_TYPES.ERROR,
+    },
+    WCD_ACCOUNT_LOCKED: {
+        text: 'Account has been locked.',
+        type: MESSAGE_TYPES.WARNING,
     }
 };
