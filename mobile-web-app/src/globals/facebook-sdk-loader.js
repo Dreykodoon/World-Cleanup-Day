@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { setFBLoginStatus } from './auth-actions';
-import { facebookInitialized } from '../globals/globals-actions';
+import { setFBLoginStatus } from '../authentication/auth-actions';
+import { facebookInitialized } from './globals-actions';
 
 class FacebookSdkLoader extends React.Component {
     componentDidMount() {
