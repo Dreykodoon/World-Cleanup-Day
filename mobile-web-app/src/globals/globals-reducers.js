@@ -9,13 +9,13 @@ const initialState = {
     fbInitialized: false,
 };
 
-export function reducers(state = initialState, {type}) {
+export function reducers(state = initialState, {type, payload}) {
     switch (type) {
         case FB_INITIALIZED: {
             return Object.assign({}, state, {fbInitialized: true});
         }
         case DISPLAY_MESSAGE: {
-            return Object.assign({}, state, {message: 'Test message'});
+            return Object.assign({}, state, {message: payload});
         }
         case CLEAR_MESSAGE: {
             return Object.assign({}, state, {message: null});
