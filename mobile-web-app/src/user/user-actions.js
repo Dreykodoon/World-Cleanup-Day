@@ -5,13 +5,14 @@ export const ACCEPT_TERMS = 'ACCEPT_TERMS';
 export function acceptTerms() {
     return async (dispatch, getState) => {
         try {
-            const response = await axios.put('/me/accept-terms', {}, {
+            await axios.put('/me/accept-terms', {}, {
                 headers: {
                     Authorization: `Bearer ${getState().auth.wcdToken}`,
                 }
             });
-
-            console.log(response);
+            dispatch({
+                type: ACCEPT_TERMS,
+            });
         }
         catch (exception) {
             //TODO what to do in case server unresponsive
