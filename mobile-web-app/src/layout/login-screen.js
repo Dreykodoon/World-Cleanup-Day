@@ -25,7 +25,7 @@ class LoginScreen extends React.Component {
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.loggedIn && nextProps.loggedIn !== this.props.loggedIn) {
-            this.props.history.push('/main/camera');
+            this.props.history.push('/terms');
         }
     }
 
