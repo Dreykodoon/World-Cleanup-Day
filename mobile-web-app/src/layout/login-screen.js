@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { loginWithFB } from '../authentication/auth-actions';
 import { isUserLoggedIn } from '../authentication/auth-reducers';
+import { getUserProfile } from '../user/user-actions';
 
 const styles = {
     screen: {
@@ -24,8 +25,17 @@ class LoginScreen extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.loggedIn && nextProps.loggedIn !== this.props.loggedIn) {
+        const userJustLoggedIn = nextProps.loggedIn && nextProps.loggedIn !== this.props.loggedIn;
+        const userAlreadyLoggedIn = this.props.loggedIn && nextProps.loggedIn === this.props.loggedIn;
+
+        if (userJustLoggedIn) {
+            this.props.getUserProfile();
+        }
+        else if (userAlreadyLoggedIn && !nextProps.userProfile.termsAcceptedAt) {
             this.props.history.push('/terms');
+        }
+        else if (userAlreadyLoggedIn && nextProps.userProfile.termsAcceptedAt) {
+            this.props.history.push('/main/camera');
         }
     }
 
@@ -44,12 +54,15 @@ LoginScreen.propTypes = {
     fbInitialized: PropTypes.bool,
     loggedIn: PropTypes.bool,
     loginWithFB: PropTypes.func,
+    getUserProfile: PropTypes.func,
+    userProfile: PropTypes.object,
     history: PropTypes.any,
 };
 
 const mapStateToProps = (state) => {
     return {
         fbInitialized: state.globals.fbInitialized,
+        userProfile: state.user,
         loggedIn: isUserLoggedIn(state),
     };
 };
@@ -57,6 +70,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         loginWithFB: () => dispatch(loginWithFB()),
+        getUserProfile: () => dispatch(getUserProfile()),
     };
 };
 
