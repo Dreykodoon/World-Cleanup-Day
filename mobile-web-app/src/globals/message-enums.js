@@ -10,7 +10,7 @@ export const MESSAGES = {
         text: 'Din not connect with Facebook.',
         type: MESSAGE_TYPES.ERROR,
     },
-    WCD_LOGIN_FAILED: {
+    WCD_SERVER_UNAVAILABLE: {
         text: 'Could not connect to WCD servers.',
         type: MESSAGE_TYPES.ERROR,
     },
