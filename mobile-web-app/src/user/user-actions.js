@@ -1,4 +1,6 @@
 import axios from 'axios';
+import { DISPLAY_MESSAGE } from '../globals/globals-actions';
+import { MESSAGES } from '../globals/message-enums';
 
 export const GET_USER_PROFILE = 'GET_USER_PROFILE';
 
@@ -13,8 +15,10 @@ export function acceptTerms() {
             retrieveUserProfile(dispatch, getState);
         }
         catch (exception) {
-            //TODO what to do in case server unresponsive
-            console.log(exception);
+            dispatch({
+                type: DISPLAY_MESSAGE,
+                payload: MESSAGES.WCD_SERVER_UNAVAILABLE,
+            });
         }
     };
 }
@@ -37,7 +41,9 @@ async function retrieveUserProfile(dispatch, getState) {
         });
     }
     catch (exception) {
-        //TODO what happens when cannot retrieve user profile
-        console.log(exception);
+        dispatch({
+            type: DISPLAY_MESSAGE,
+            payload: MESSAGES.WCD_SERVER_UNAVAILABLE,
+        });
     }
 }

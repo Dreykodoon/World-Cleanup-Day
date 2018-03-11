@@ -41,7 +41,7 @@ export function loginWithFB() {
                 else {
                     dispatch({
                         type: DISPLAY_MESSAGE,
-                        payload: MESSAGES.WCD_LOGIN_FAILED,
+                        payload: MESSAGES.WCD_SERVER_UNAVAILABLE,
                     });
                 }
             }
