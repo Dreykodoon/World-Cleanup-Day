@@ -1,13 +1,13 @@
-import { ACCEPT_TERMS } from './user-actions';
+import {
+    GET_USER_PROFILE,
+} from './user-actions';
 
-const initialState = {
-    termsAccepted: false,
-};
+const initialState = {};
 
-export function reducers(state = initialState, {type}) {
+export function reducers(state = initialState, {type, payload}) {
     switch (type) {
-        case ACCEPT_TERMS: {
-            return Object.assign({}, state, {termsAccepted: true});
+        case GET_USER_PROFILE: {
+            return payload;
         }
         default: {
             return state;
