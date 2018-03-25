@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Photo from './photo';
-import { deletePhotos, deleteSinglePhoto } from './photo-actions';
+import { deletePhotos, deleteSinglePhoto } from './trashpoint-actions';
 
 const styles = {
     photoContainer: {

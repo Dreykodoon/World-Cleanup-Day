@@ -4,7 +4,7 @@ import {
     UNLOAD_PHOTOS,
     DELETE_PHOTOS,
     DELETE_SINGLE_PHOTO,
-} from './photo-actions';
+} from './trashpoint-actions';
 
 const initialState = {photos: [], photoIdCounter: 0};
 

@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import Header from './header';
 import Camera from '../trashpoint/camera';
 import Gallery from '../trashpoint/gallery';
-import { loadPhotos, unloadPhotos } from '../trashpoint/photo-actions';
+import { loadPhotos, unloadPhotos } from '../trashpoint/trashpoint-actions';
 
 class MainScreen extends React.Component {
     componentWillMount() {
