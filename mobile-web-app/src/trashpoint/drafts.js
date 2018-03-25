@@ -12,12 +12,6 @@ const styles = {
 };
 
 class Drafts extends Component {
-    constructor(props) {
-        super(props);
-        this.deleteTrashpoints = this.deleteTrashpoints.bind(this);
-        this.deleteSingleTrashpoint = this.deleteSingleTrashpoint.bind(this);
-    }
-
     deleteTrashpoints() {
         this.props.deleteTrashpoints(this.props.trashpoints);
     }
@@ -35,7 +29,7 @@ class Drafts extends Component {
             <div>
                 <div>
                     A series of trashpoint drafts.
-                    <button onClick={this.deleteTrashpoints}>Delete all drafts</button>
+                    <button onClick={this.deleteTrashpoints.bind(this)}>Delete all drafts</button>
                     {trashpoints.map((trashpoint, index) => (
                         <div style={styles.screenshotContainer} key={index}>
                             <Screenshot src={trashpoint.src}/>
