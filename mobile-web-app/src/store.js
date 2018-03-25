@@ -1,6 +1,6 @@
 import { createStore, applyMiddleware, combineReducers, compose } from 'redux';
 import thunk from 'redux-thunk';
-import { reducers as photoReducers } from './photo/photo-reducers';
+import { reducers as photoReducers } from './trashpoint/photo-reducers';
 import { reducers as authReducers } from './authentication/auth-reducers';
 import { reducers as globalsReducers } from './globals/globals-reducers';
 import { reducers as userReducers } from './user/user-reducers';

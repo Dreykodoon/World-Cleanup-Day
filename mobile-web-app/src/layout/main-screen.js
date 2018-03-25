@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import { Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Header from './header';
-import Camera from '../photo/camera';
-import Gallery from '../photo/gallery';
-import { loadPhotos, unloadPhotos } from '../photo/photo-actions';
+import Camera from '../trashpoint/camera';
+import Gallery from '../trashpoint/gallery';
+import { loadPhotos, unloadPhotos } from '../trashpoint/photo-actions';
 
 class MainScreen extends React.Component {
     componentWillMount() {
