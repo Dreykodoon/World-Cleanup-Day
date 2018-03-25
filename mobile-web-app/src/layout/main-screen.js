@@ -4,7 +4,7 @@ import { Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Header from './header';
 import Camera from '../trashpoint/camera';
-import Gallery from '../trashpoint/gallery';
+import Drafts from '../trashpoint/drafts';
 import { loadTrashpoints, unloadTrashpoints } from '../trashpoint/trashpoint-actions';
 
 class MainScreen extends React.Component {
@@ -23,7 +23,7 @@ class MainScreen extends React.Component {
             <div style={{height: '100%'}}>
                 <Header/>
                 <Route path={`${match.url}/camera`} component={Camera}/>
-                <Route path={`${match.url}/gallery`} component={Gallery}/>
+                <Route path={`${match.url}/drafts`} component={Drafts}/>
             </div>
         );
     }

@@ -38,7 +38,7 @@ class Header extends Component {
                 <div style={styles.leftMenu}>
                     <Link style={{display: 'inline-block'}} to='/main/camera'>Camera</Link>
                     <div style={{width: '15px', display: 'inline-block'}}></div>
-                    <Link style={{display: 'inline-block'}} to='/main/gallery'>Gallery</Link>
+                    <Link style={{display: 'inline-block'}} to='/main/drafts'>Drafts</Link>
                 </div>
                 <div style={styles.rightMenu}>
                     <button onClick={this.fbLogout} style={styles.logoutButton}>

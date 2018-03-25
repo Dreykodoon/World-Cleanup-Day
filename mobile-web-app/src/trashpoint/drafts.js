@@ -11,7 +11,7 @@ const styles = {
     }
 };
 
-class Gallery extends Component {
+class Drafts extends Component {
     constructor(props) {
         super(props);
         this.deleteTrashpoints = this.deleteTrashpoints.bind(this);
@@ -48,7 +48,7 @@ class Gallery extends Component {
     }
 }
 
-Gallery.propTypes = {
+Drafts.propTypes = {
     deleteTrashpoints: PropTypes.func,
     deleteSingleTrashpoint: PropTypes.func,
     trashpoints: PropTypes.array,
@@ -67,4 +67,4 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Gallery);
+export default connect(mapStateToProps, mapDispatchToProps)(Drafts);
