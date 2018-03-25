@@ -6,10 +6,12 @@ import Header from './header';
 import Camera from '../trashpoint/camera';
 import Drafts from '../trashpoint/drafts';
 import { loadTrashpoints, unloadTrashpoints } from '../trashpoint/trashpoint-actions';
+import { retrieveDataset } from '../globals/globals-actions';
 
 class MainScreen extends React.Component {
     componentWillMount() {
         this.props.loadTrashpoints();
+        this.props.retrieveDataset();
     }
 
     componentWillUnmount() {
@@ -33,6 +35,7 @@ MainScreen.propTypes = {
     match: PropTypes.any,
     loadTrashpoints: PropTypes.func,
     unloadTrashpoints: PropTypes.func,
+    retrieveDataset: PropTypes.func,
     history: PropTypes.any,
 };
 
@@ -40,6 +43,7 @@ const mapDispatchToProps = (dispatch) => {
     return {
         loadTrashpoints: () => dispatch(loadTrashpoints()),
         unloadTrashpoints: () => dispatch(unloadTrashpoints()),
+        retrieveDataset: () => dispatch(retrieveDataset()),
     };
 };
 
