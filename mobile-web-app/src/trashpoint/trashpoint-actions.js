@@ -1,4 +1,6 @@
 import localforage from 'localforage';
+import axios from 'axios';
+import { STATUS, AMOUNT, COMPOSITION } from './trashpoint-enums';
 
 export const ADD_TRASHPOINT = 'ADD_TRASHPOINT';
 export const LOAD_TRASHPOINTS = 'LOAD_TRASHPOINTS';
@@ -80,5 +82,34 @@ export function deleteSingleTrashpoint(trashpointId) {
 export function unloadTrashpoints() {
     return {
         type: UNLOAD_TRASHPOINTS,
+    };
+}
+
+export function uploadTrashpoint(trashpoint) {
+    // TODO this is just a test run. It won't stay like this
+    return async (dispatch, getState) => {
+        try {
+            const response = await axios.put(
+                '/trashpoints',
+                {
+                    datasetId: getState().globals.dataset.id,
+                    location: trashpoint.coordinates,
+                    status: STATUS.REGULAR,
+                    amount: AMOUNT.HANDFUL,
+                    composition: [COMPOSITION.PLASTIC],
+                    name: 'test',
+                    address: 'test',
+                },
+                {
+                    headers: {
+                        Authorization: `Bearer ${getState().auth.wcdToken}`,
+                    }
+                },
+            );
+            console.log(response);
+        }
+        catch (error) {
+            console.log(error);
+        }
     };
 }
