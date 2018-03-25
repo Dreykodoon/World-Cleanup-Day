@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import Photo from './photo';
-import { deletePhotos, deleteSinglePhoto } from './trashpoint-actions';
+import Screenshot from './screenshot';
+import { deleteTrashpoints, deleteSingleTrashpoint } from './trashpoint-actions';
 
 const styles = {
-    photoContainer: {
+    screenshotContainer: {
         margin: '10px',
         display: 'block',
     }
@@ -14,33 +14,32 @@ const styles = {
 class Gallery extends Component {
     constructor(props) {
         super(props);
-        this.deletePhotos = this.deletePhotos.bind(this);
-        this.deleteSinglePhoto = this.deleteSinglePhoto.bind(this);
+        this.deleteTrashpoints = this.deleteTrashpoints.bind(this);
+        this.deleteSingleTrashpoint = this.deleteSingleTrashpoint.bind(this);
     }
 
-    deletePhotos() {
-        const {photos, removeAllPhotos} = this.props;
-        removeAllPhotos(photos);
+    deleteTrashpoints() {
+        this.props.deleteTrashpoints(this.props.trashpoints);
     }
 
-    deleteSinglePhoto(photoId) {
+    deleteSingleTrashpoint(trashpointId) {
         return () => {
-            this.props.removeSinglePhoto(photoId);
+            this.props.deleteSingleTrashpoint(trashpointId);
         };
     }
 
     render() {
-        const { photos } = this.props;
+        const { trashpoints } = this.props;
 
         return (
             <div>
                 <div>
-                    A series of trash photos.
-                    <button onClick={this.deletePhotos}>Delete all photos</button>
-                    {photos.map((photo, index) => (
-                        <div style={styles.photoContainer} key={index}>
-                            <Photo src={photo.src}/>
-                            <button onClick={this.deleteSinglePhoto(photo.id)}>Delete photo</button>
+                    A series of trashpoint drafts.
+                    <button onClick={this.deleteTrashpoints}>Delete all drafts</button>
+                    {trashpoints.map((trashpoint, index) => (
+                        <div style={styles.screenshotContainer} key={index}>
+                            <Screenshot src={trashpoint.src}/>
+                            <button onClick={this.deleteSingleTrashpoint(trashpoint.id)}>Delete draft</button>
                         </div>
                     ))}
                 </div>
@@ -50,22 +49,21 @@ class Gallery extends Component {
 }
 
 Gallery.propTypes = {
-    loadPhotos: PropTypes.func,
-    removeAllPhotos: PropTypes.func,
-    removeSinglePhoto: PropTypes.func,
-    photos: PropTypes.array,
+    deleteTrashpoints: PropTypes.func,
+    deleteSingleTrashpoint: PropTypes.func,
+    trashpoints: PropTypes.array,
 };
 
 const mapStateToProps = (state) => {
     return {
-        photos: state.photo.photos,
+        trashpoints: state.trashpoint.trashpoints,
     };
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        removeAllPhotos: (photos) => dispatch(deletePhotos(photos)),
-        removeSinglePhoto: (photoId) => dispatch(deleteSinglePhoto(photoId)),
+        deleteTrashpoints: (trashpoints) => dispatch(deleteTrashpoints(trashpoints)),
+        deleteSingleTrashpoint: (trashpointId) => dispatch(deleteSingleTrashpoint(trashpointId)),
     };
 };
 

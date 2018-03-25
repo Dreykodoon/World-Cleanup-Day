@@ -1,78 +1,84 @@
 import localforage from 'localforage';
 
-export const ADD_PHOTO = 'ADD_PHOTO';
-export const LOAD_PHOTOS = 'LOAD_PHOTOS';
-export const UNLOAD_PHOTOS = 'UNLOAD_PHOTOS';
-export const DELETE_PHOTOS = 'DELETE_PHOTOS';
-export const DELETE_SINGLE_PHOTO = 'DELETE_SINGLE_PHOTO';
+export const ADD_TRASHPOINT = 'ADD_TRASHPOINT';
+export const LOAD_TRASHPOINTS = 'LOAD_TRASHPOINTS';
+export const UNLOAD_TRASHPOINTS = 'UNLOAD_TRASHPOINTS';
+export const DELETE_TRASHPOINTS = 'DELETE_TRASHPOINTS';
+export const DELETE_SINGLE_TRASHPOINT = 'DELETE_SINGLE_TRASHPOINT';
 
-export function addPhoto({coordinates, screenshot}) {
+export function addTrashpoint({coordinates, screenshot}) {
     return (dispatch, getState) => {
         const userID = getState().auth.facebook.userID;
-        const idCounter = getState().photo.photoIdCounter;
-        const photo = {
+        const idCounter = getState().trashpoint.trashpointIdCounter;
+        const trashpoint = {
             id: `${idCounter}_${userID}`,
             coordinates,
             src: screenshot,
             userID,
         };
-        localforage.setItem(photo.id, photo)
+        localforage.setItem(trashpoint.id, trashpoint)
             .then(() => dispatch({
-                type: ADD_PHOTO,
-                payload: photo,
+                type: ADD_TRASHPOINT,
+                payload: trashpoint,
             }))
-            .catch(err => console.log(err));
+            .catch((err) => {
+                // TODO: something needs to be done if adding a trashpoint was unsuccesfull.
+                console.log(err);
+            });
     };
 }
 
-export function loadPhotos() {
+export function loadTrashpoints() {
     return (dispatch, getState) => {
-        let photos = [];
+        let trashpoints = [];
         const currentUserID = getState().auth.facebook.userID;
 
-        localforage.iterate((photo) => {
-            if (currentUserID === photo.userID) {
-                photos.push(photo);
+        localforage.iterate((trashpoint) => {
+            if (currentUserID === trashpoint.userID) {
+                trashpoints.push(trashpoint);
             }
         })
             .then(() => dispatch({
-                type: LOAD_PHOTOS,
-                payload: photos,
-            }))
-            .catch(err => console.log(err));
-    };
-}
-
-export function deletePhotos(photos) {
-    return (dispatch) => {
-        const photoIds = photos.map((photo) => photo.id);
-        Promise.all(photoIds.map((photoId) => localforage.removeItem(photoId)))
-            .then(() => dispatch({
-                type: DELETE_PHOTOS,
+                type: LOAD_TRASHPOINTS,
+                payload: trashpoints,
             }))
             .catch((err) => {
-                // TODO: something needs to be done if removal of all photos was unsuccesfull.
+                // TODO: something needs to be done if loading trashpoints was unsuccesfull.
                 console.log(err);
             });
     };
 }
 
-export function deleteSinglePhoto(photoId) {
+export function deleteTrashpoints(trashpoints) {
     return (dispatch) => {
-        localforage.removeItem(photoId)
+        const trashpointIds = trashpoints.map((trashpoint) => trashpoint.id);
+        Promise.all(trashpointIds.map((trashpointId) => localforage.removeItem(trashpointId)))
             .then(() => dispatch({
-                type: DELETE_SINGLE_PHOTO,
-                payload: photoId,
+                type: DELETE_TRASHPOINTS,
             }))
             .catch((err) => {
-                // TODO: something needs to be done if trying to remove the photo fails.
+                // TODO: something needs to be done if removal of all trashpoints was unsuccesfull.
                 console.log(err);
             });
     };
 }
 
-export function unloadPhotos() {
+export function deleteSingleTrashpoint(trashpointId) {
+    return (dispatch) => {
+        localforage.removeItem(trashpointId)
+            .then(() => dispatch({
+                type: DELETE_SINGLE_TRASHPOINT,
+                payload: trashpointId,
+            }))
+            .catch((err) => {
+                // TODO: something needs to be done if trying to remove the trashpoint fails.
+                console.log(err);
+            });
+    };
+}
+
+export function unloadTrashpoints() {
     return {
-        type: UNLOAD_PHOTOS,
+        type: UNLOAD_TRASHPOINTS,
     };
 }

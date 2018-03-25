@@ -7,12 +7,12 @@ const styles = {
     }
 };
 
-const Photo = ({ src }) => (
+const Screenshot = ({ src }) => (
     <img style={styles.image} alt='trash' src={src}/>
 );
 
-Photo.propTypes = {
+Screenshot.propTypes = {
     src: PropTypes.string,
 };
 
-export default Photo;
+export default Screenshot;

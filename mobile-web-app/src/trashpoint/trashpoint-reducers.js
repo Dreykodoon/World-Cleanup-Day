@@ -1,33 +1,33 @@
 import {
-    ADD_PHOTO,
-    LOAD_PHOTOS,
-    UNLOAD_PHOTOS,
-    DELETE_PHOTOS,
-    DELETE_SINGLE_PHOTO,
+    ADD_TRASHPOINT,
+    LOAD_TRASHPOINTS,
+    UNLOAD_TRASHPOINTS,
+    DELETE_TRASHPOINTS,
+    DELETE_SINGLE_TRASHPOINT,
 } from './trashpoint-actions';
 
-const initialState = {photos: [], photoIdCounter: 0};
+const initialState = {trashpoints: [], trashpointIdCounter: 0};
 
 export function reducers(state = initialState, {type, payload}) {
     switch (type) {
-        case ADD_PHOTO: {
-            const {photos, photoIdCounter} = state;
+        case ADD_TRASHPOINT: {
+            const {trashpoints, trashpointIdCounter} = state;
 
-            return Object.assign({}, state, {photos: photos.concat([payload]), photoIdCounter: photoIdCounter + 1});
+            return Object.assign({}, state, {trashpoints: trashpoints.concat([payload]), trashpointIdCounter: trashpointIdCounter + 1});
         }
-        case LOAD_PHOTOS: {
-            return Object.assign({}, state, {photos: payload, photoIdCounter: calculatePhotoIdCounterValue(payload)});
+        case LOAD_TRASHPOINTS: {
+            return Object.assign({}, state, {trashpoints: payload, trashpointIdCounter: calculateTrashpointIdCounterValue(payload)});
         }
-        case UNLOAD_PHOTOS: {
+        case UNLOAD_TRASHPOINTS: {
             return initialState;
         }
-        case DELETE_PHOTOS: {
+        case DELETE_TRASHPOINTS: {
             return Object.assign({}, initialState);
         }
-        case DELETE_SINGLE_PHOTO: {
-            const remainingPhotos = state.photos.filter((photo) => photo.id !== payload);
+        case DELETE_SINGLE_TRASHPOINT: {
+            const remainingTrashpoints = state.trashpoints.filter((trashpoint) => trashpoint.id !== payload);
 
-            return Object.assign({}, state, {photos: remainingPhotos});
+            return Object.assign({}, state, {trashpoints: remainingTrashpoints});
         }
         default: {
             return state;
@@ -35,10 +35,10 @@ export function reducers(state = initialState, {type, payload}) {
     }
 }
 
-function calculatePhotoIdCounterValue(photos) {
-    if (photos.length > 0) {
-        const lastPhotoId = photos[photos.length - 1].id;
-        const idPrefixCounter = Number(lastPhotoId.split('_')[0]);
+function calculateTrashpointIdCounterValue(trashpoints) {
+    if (trashpoints.length > 0) {
+        const lastTrashpointId = trashpoints[trashpoints.length - 1].id;
+        const idPrefixCounter = Number(lastTrashpointId.split('_')[0]);
 
         return idPrefixCounter + 1;
     }

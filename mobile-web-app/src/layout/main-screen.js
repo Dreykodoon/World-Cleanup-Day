@@ -5,15 +5,15 @@ import { connect } from 'react-redux';
 import Header from './header';
 import Camera from '../trashpoint/camera';
 import Gallery from '../trashpoint/gallery';
-import { loadPhotos, unloadPhotos } from '../trashpoint/trashpoint-actions';
+import { loadTrashpoints, unloadTrashpoints } from '../trashpoint/trashpoint-actions';
 
 class MainScreen extends React.Component {
     componentWillMount() {
-        this.props.loadPhotos();
+        this.props.loadTrashpoints();
     }
 
     componentWillUnmount() {
-        this.props.unloadPhotos();
+        this.props.unloadTrashpoints();
     }
 
     render() {
@@ -31,15 +31,15 @@ class MainScreen extends React.Component {
 
 MainScreen.propTypes = {
     match: PropTypes.any,
-    loadPhotos: PropTypes.func,
-    unloadPhotos: PropTypes.func,
+    loadTrashpoints: PropTypes.func,
+    unloadTrashpoints: PropTypes.func,
     history: PropTypes.any,
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        loadPhotos: () => dispatch(loadPhotos()),
-        unloadPhotos: () => dispatch(unloadPhotos()),
+        loadTrashpoints: () => dispatch(loadTrashpoints()),
+        unloadTrashpoints: () => dispatch(unloadTrashpoints()),
     };
 };
 

@@ -5,6 +5,6 @@ export default function configureLocalforage() {
         name: 'Let\' do it World! LITE',
         driver: localForage.INDEXEDDB,
         storeName: 'LDIWL store',
-        description: 'Allows storing photos for offline use.'
+        description: 'Allows storing trashpoint drafts for later use.'
     });
 }

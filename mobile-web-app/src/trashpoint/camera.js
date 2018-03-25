@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Webcam from 'react-webcam';
 import { connect } from 'react-redux';
-import { addPhoto } from './trashpoint-actions';
+import { addTrashpoint } from './trashpoint-actions';
 import geoConfig from '../configs/geolocation-config';
 
 const styles = {
@@ -44,7 +44,7 @@ class Camera extends Component {
         }});
     }
 
-    takePhoto() {
+    takeScreenshot() {
         const screenshot = this.state.webcam.getScreenshot();
 
         navigator.geolocation.getCurrentPosition((position) => {
@@ -52,7 +52,7 @@ class Camera extends Component {
                 latitude: position.coords.latitude,
                 longitude: position.coords.longitude,
             };
-            this.props.addPhoto({coordinates, screenshot});
+            this.props.addTrashpoint({coordinates, screenshot});
         }, (err) => {
             // TODO: something needs to be done when coordinates couldn't be found
             console.log(err);
@@ -66,19 +66,19 @@ class Camera extends Component {
         return (
             <div ref={this.setContainerRef} style={styles.topContainer}>
                 <Webcam style={{marginLeft: cameraLeftMargin}} height={height} width={height} audio={false} ref={this.setCameraRef}/>
-                <button style={styles.button} onClick={this.takePhoto.bind(this)}>Take photo</button>
+                <button style={styles.button} onClick={this.takeScreenshot.bind(this)}>Take screenshot</button>
             </div>
         );
     }
 }
 
 Camera.propTypes = {
-    addPhoto: PropTypes.func,
+    addTrashpoint: PropTypes.func,
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        addPhoto: (photo) => dispatch(addPhoto(photo)),
+        addTrashpoint: (screenshot) => dispatch(addTrashpoint(screenshot)),
     };
 };
 
