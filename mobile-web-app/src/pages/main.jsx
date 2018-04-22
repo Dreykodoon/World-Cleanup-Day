@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import Header from '../layout/header';
 import Camera from './camera';
 import Drafts from './drafts';
+import TrashpointCreator from './trashpoint-creator';
 import { loadTrashpoints, unloadTrashpoints } from '../trashpoint/trashpoint-actions';
 import { retrieveDataset } from '../globals/globals-actions';
 
@@ -26,6 +27,7 @@ class Main extends React.Component {
                 <Header/>
                 <Route path={`${match.url}/camera`} component={Camera}/>
                 <Route path={`${match.url}/drafts`} component={Drafts}/>
+                <Route path={`${match.url}/trashpoint`} component={TrashpointCreator}/>
             </div>
         );
     }

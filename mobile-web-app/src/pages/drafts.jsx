@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Screenshot from '../trashpoint/screenshot';
-import { deleteTrashpoints, deleteSingleTrashpoint, uploadTrashpoint } from '../trashpoint/trashpoint-actions';
+import { deleteTrashpoints, deleteSingleTrashpoint } from '../trashpoint/trashpoint-actions';
 
 const styles = {
     screenshotContainer: {
@@ -22,11 +22,11 @@ class Drafts extends Component {
         };
     }
 
-    uploadTrashpoint(trashpointId) {
+    createTrashpoint(trashpointId) {
         const trashpoint = this.props.trashpoints.filter((tp) => tp.id === trashpointId)[0];
 
         return () => {
-            this.props.uploadTrashpoint(trashpoint);
+            this.props.history.push('/main/trashpoint', { trashpoint });
         };
     }
 
@@ -42,7 +42,7 @@ class Drafts extends Component {
                         <div style={styles.screenshotContainer} key={index}>
                             <Screenshot src={trashpoint.src}/>
                             <button onClick={this.deleteSingleTrashpoint(trashpoint.id)}>Delete draft</button>
-                            <button onClick={this.uploadTrashpoint(trashpoint.id)}>Upload trashpoint</button>
+                            <button onClick={this.createTrashpoint(trashpoint.id)}>Create trashpoint</button>
                         </div>
                     ))}
                 </div>
@@ -54,8 +54,8 @@ class Drafts extends Component {
 Drafts.propTypes = {
     deleteTrashpoints: PropTypes.func,
     deleteSingleTrashpoint: PropTypes.func,
-    uploadTrashpoint: PropTypes.func,
     trashpoints: PropTypes.array,
+    history: PropTypes.object,
 };
 
 const mapStateToProps = (state) => {
@@ -68,7 +68,6 @@ const mapDispatchToProps = (dispatch) => {
     return {
         deleteTrashpoints: (trashpoints) => dispatch(deleteTrashpoints(trashpoints)),
         deleteSingleTrashpoint: (trashpointId) => dispatch(deleteSingleTrashpoint(trashpointId)),
-        uploadTrashpoint: (trashpoint) => dispatch(uploadTrashpoint(trashpoint))
     };
 };
 
