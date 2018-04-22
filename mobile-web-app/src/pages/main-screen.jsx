@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Route } from 'react-router-dom';
 import { connect } from 'react-redux';
-import Header from './header';
+import Header from '../layout/header';
 import Camera from '../trashpoint/camera';
 import Drafts from '../trashpoint/drafts';
 import { loadTrashpoints, unloadTrashpoints } from '../trashpoint/trashpoint-actions';

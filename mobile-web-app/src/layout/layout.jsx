@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import LoginScreen from './login-screen';
-import AcceptTermsScreen from './accept-terms-screen';
-import MainScreen from './main-screen';
+import LoginScreen from '../pages/login-screen';
+import AcceptTermsScreen from '../pages/accept-terms-screen';
+import MainScreen from '../pages/main-screen';
 import MessageContainer from '../globals/message-container';
 import { isUserLoggedIn } from '../authentication/auth-reducers';
 
