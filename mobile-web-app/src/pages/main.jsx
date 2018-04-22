@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 import { Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Header from '../layout/header';
-import Camera from '../trashpoint/camera';
-import Drafts from '../trashpoint/drafts';
+import Camera from './camera';
+import Drafts from './drafts';
 import { loadTrashpoints, unloadTrashpoints } from '../trashpoint/trashpoint-actions';
 import { retrieveDataset } from '../globals/globals-actions';
 
-class MainScreen extends React.Component {
+class Main extends React.Component {
     componentWillMount() {
         this.props.loadTrashpoints();
         this.props.retrieveDataset();
@@ -31,7 +31,7 @@ class MainScreen extends React.Component {
     }
 }
 
-MainScreen.propTypes = {
+Main.propTypes = {
     match: PropTypes.any,
     loadTrashpoints: PropTypes.func,
     unloadTrashpoints: PropTypes.func,
@@ -47,4 +47,4 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-export default connect(undefined, mapDispatchToProps)(MainScreen);
+export default connect(undefined, mapDispatchToProps)(Main);

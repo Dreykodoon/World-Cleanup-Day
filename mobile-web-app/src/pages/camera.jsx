@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Webcam from 'react-webcam';
 import { connect } from 'react-redux';
-import { addTrashpoint } from './trashpoint-actions';
+import { addTrashpoint } from '../trashpoint/trashpoint-actions';
 import geoConfig from '../configs/geolocation-config';
 
 const styles = {

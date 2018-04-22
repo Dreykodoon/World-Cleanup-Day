@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import Screenshot from './screenshot';
-import { deleteTrashpoints, deleteSingleTrashpoint, uploadTrashpoint } from './trashpoint-actions';
+import Screenshot from '../trashpoint/screenshot';
+import { deleteTrashpoints, deleteSingleTrashpoint, uploadTrashpoint } from '../trashpoint/trashpoint-actions';
 
 const styles = {
     screenshotContainer: {

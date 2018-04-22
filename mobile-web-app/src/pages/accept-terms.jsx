@@ -5,7 +5,7 @@ import { withRouter } from 'react-router';
 import { acceptTerms } from '../user/user-actions';
 
 
-class AcceptTermsScreen extends React.Component {
+class AcceptTerms extends React.Component {
     componentWillMount() {
         if (this.props.termsAcceptedAt) {
             this.props.history.push('/main/camera');
@@ -28,7 +28,7 @@ class AcceptTermsScreen extends React.Component {
     }
 }
 
-AcceptTermsScreen.propTypes = {
+AcceptTerms.propTypes = {
     acceptTerms: PropTypes.func,
     termsAcceptedAt: PropTypes.string,
     history: PropTypes.any,
@@ -46,4 +46,4 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(AcceptTermsScreen));
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(AcceptTerms));

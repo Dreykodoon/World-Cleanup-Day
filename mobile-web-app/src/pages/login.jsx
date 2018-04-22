@@ -17,7 +17,7 @@ const styles = {
     },
 };
 
-class LoginScreen extends React.Component {
+class Login extends React.Component {
     constructor() {
         super();
 
@@ -50,7 +50,7 @@ class LoginScreen extends React.Component {
     }
 }
 
-LoginScreen.propTypes = {
+Login.propTypes = {
     fbInitialized: PropTypes.bool,
     loggedIn: PropTypes.bool,
     loginWithFB: PropTypes.func,
@@ -74,4 +74,4 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(LoginScreen));
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Login));
