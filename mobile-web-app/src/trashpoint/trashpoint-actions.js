@@ -89,7 +89,7 @@ export function uploadTrashpoint(trashpoint) {
     // TODO this is just a test run. It won't stay like this
     return async (dispatch, getState) => {
         try {
-            const response = await axios.put(
+            let response = await axios.put(
                 '/trashpoints',
                 {
                     datasetId: getState().globals.dataset.id,
@@ -106,7 +106,59 @@ export function uploadTrashpoint(trashpoint) {
                     }
                 },
             );
-            console.log(response);
+
+            const storedTrashpoint = response.data;
+            response = await axios.put(
+                `/trashpoints/${storedTrashpoint.id}/images`,
+                {
+                    count: 1,
+                },
+                {
+                    headers: {
+                        Authorization: `Bearer ${getState().auth.wcdToken}`,
+                    }
+                },
+            );
+
+            const thumbnail = response.data.filter((permission) => permission.type === 'thumbnail')
+                .map(({permission: {token, resourceId}}) => ({
+                    url: token,
+                    id: resourceId,
+                    blob: trashpoint.src,
+                }));
+            const medium = response.data.filter((permission) => permission.type === 'medium')
+                .map(({permission: {token, resourceId}}) => ({
+                    url: token,
+                    id: resourceId,
+                    blob: trashpoint.src,
+                }));
+            const photos = thumbnail.concat(medium);
+
+            response = await Promise.all(
+                photos.map(({ url, blob }) => {
+                    return axios.put(url, blob, {
+                        headers: {
+                            'x-ms-blob-type': 'BlockBlob',
+                        }
+                    }).catch(() => {
+                        return axios.put(url, blob, {
+                            headers: {
+                                'x-ms-blob-type': 'BlockBlob',
+                            }
+                        }).catch(() => {
+                            return axios.put(url, blob, {
+                                headers: {
+                                    'x-ms-blob-type': 'BlockBlob',
+                                }
+                            }).catch((error) => {
+                                console.log('Error when uploading image', error);
+                            });
+                        });
+                    });
+                })
+            );
+
+            console.log('succesfully uploaded image', response);
         }
         catch (error) {
             console.log(error);
